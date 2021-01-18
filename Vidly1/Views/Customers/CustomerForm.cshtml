@@ -1,0 +1,57 @@
+﻿@model Vidly1.ViewModels.CustomerFormViewModel
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>New Customer</h2>
+
+@* To render a form we are going to use a few Html helper methods *@
+@* here we past the name of the targeted action that should be called when we post this form.
+    ("Action", "Controller") this method is just render the beginning form tag*@
+
+@using (Html.BeginForm("Save", "Customers"))
+{
+    @Html.ValidationSummary(true, "Please fix the following errors");
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customer.Name)  @* in labelFor we pass a lamda expression that specifies the name of the target property in the model used in this form.*@
+        @Html.TextBoxFor(m => m.Customer.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Customer.Name) @* 50.  validation messages*@
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customer.MembershipTypeId)
+        @Html.DropDownListFor(m => m.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "Id", "Name"), "Select Membership Type", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Customer.MembershipTypeId)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customer.Birthdate)
+        @Html.TextBoxFor(m => m.Customer.Birthdate, "{0:d MMM yyyy}", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Customer.Birthdate)
+    </div>
+
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(m => m.Customer.IsSubscribedToNewaLetter) Subscribed to Newsletters?
+        </label>
+    </div>
+
+    @Html.HiddenFor(m => m.Customer.Id)
+    @Html.AntiForgeryToken()
+
+    <button type="submit" class="btn btn-primary">Save</button>
+
+}
+
+@*this method returns a disposable object. So if we wrap this call in a using block, at the end of the using block the object return from
+    html.begin form will be disposed. and in the Dispose method.It will simply render the closing HTML tag.*@
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+@* 56
+*@
