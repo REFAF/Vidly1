@@ -57,9 +57,10 @@ namespace Vidly1.Controllers
         public ViewResult Index()
         {
             //var movies = GetMovies(); //ex2
-            var movies = _context.Movies.Include(m => m.Genre).ToList(); //ex3.3
+            //var movies = _context.Movies.Include(m => m.Genre).ToList(); //ex3.3
 
-            return View(movies);
+            //return View(movies);
+            return View();
         }
 
 

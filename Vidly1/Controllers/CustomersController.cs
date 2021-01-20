@@ -87,9 +87,9 @@ namespace Vidly1.Controllers
         {
             //var customers = GetCustomers();  //ex2
             //var customers = _context.Customers.ToList(); // 29
-            var customers = _context.Customers.Include(c=> c.MembershipType).ToList(); //30 Include need namespace System.Data.Entity.
+            //var customers = _context.Customers.Include(c=> c.MembershipType).ToList(); //30 Include need namespace System.Data.Entity.
 
-            return View(customers);
+            return View();
         }
 
         public ActionResult Details(int id)
